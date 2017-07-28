@@ -1,0 +1,12 @@
+UUID=$1
+out=$2
+
+export token=MIIDIAYJKoZIhvcNAQcCoIIDETCCAw0CAQExDTALBglghkgBZQMEAgEwggFuBgkqhkiG9w0BBwGgggFfBIIBW3sidG9rZW4iOnsibWV0aG9kcyI6WyJzYW1sMiJdLCJleHBpcmVzX2F0IjoiMjAxNy0wNi0xM1QwNjo1MDozNC4zMTg4MjdaIiwiZXh0cmFzIjp7fSwidXNlciI6eyJPUy1GRURFUkFUSU9OIjp7ImlkZW50aXR5X3Byb3ZpZGVyIjp7ImlkIjoiZXJhX2NvbW1vbiJ9LCJwcm90b2NvbCI6eyJpZCI6InNhbWwyIn0sImdyb3VwcyI6W3siaWQiOiI5YzliOTAyODAzYjA0MTAyYTZmNjI2ZTlmNzJiZWNjYyJ9XX0sImlkIjoiSEtDQVJURVIiLCJuYW1lIjoiSEtDQVJURVIifSwiYXVkaXRfaWRzIjpbInFxOFhYWVRVUnhhbEhPbTlPd3drekEiXSwiaXNzdWVkX2F0IjoiMjAxNy0wNS0xNFQwNjo1MDozNC4zMTg5NTdaIn19MYIBhTCCAYECAQEwXDBXMQswCQYDVQQGEwJVUzEOMAwGA1UECAwFVW5zZXQxDjAMBgNVBAcMBVVuc2V0MQ4wDAYDVQQKDAVVbnNldDEYMBYGA1UEAwwPd3d3LmV4YW1wbGUuY29tAgEBMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQChfHY9ywAH6HbeMrY6j0wKByMLoUJ0pRafCh1iJCz722mysoAO4Jl++kUMbrSrm1xoeoh9dfsjReJtLzc-wshlvJ4u-8GR0zRvlgIjuYYMbrTKo9C59CiJ-xTEorLtTIxAWEaIjuVlFz2g4ZANHq11N5KgytoUjGS6PK3swfxsKXIIHNuYQQ6db4hew-k-tyrwVnN1Y2RD1JeVMbGlQQdf1NTn0WBSWMK13RdT2pZJmtmKN-WxkbbXqxr2UcIrWe6DwzEfOALVEnePihW+V87u2GLvxvsdwWH2TjAlVT5TOiKrrOJW+GDxkFqB5MlLSpGMaWNKvRqe25jBTdpUfyGu
+
+echo curl -k --header "X-Auth-Token: $token" 'https://gdc-api.nci.nih.gov/data/'"${UUID}"'' \
+--output ${out}
+
+echo ' '
+
+curl -k --header "X-Auth-Token: $token" 'https://gdc-api.nci.nih.gov/data/'"${UUID}"'' \
+--output ${out}
