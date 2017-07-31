@@ -20,12 +20,8 @@ date
 hostname
 mkdir $out/features
 mkdir $out/hlaHD
-python /cellar/users/ramarty/Projects/kir/scripts/python/component_collection.py $out/full_exome.fastq $out/features
+python /cellar/users/ramarty/Projects/kir/KIR_development/data_gathering/bin/component_collection.py $out/full_exome.fastq $out/features
 Rscript --vanilla /cellar/users/ramarty/Projects/kir/KIR_development/data_gathering/bin/runPING_extractor.R $out full_exome_1.fastq full_exome_2.fastq $out/PING_sequences/ 4
 Rscript --vanilla /cellar/users/ramarty/Projects/kir/KIR_development/data_gathering/bin/runPING_gc_caller.R $out/PING_sequences $out/PING_sequences/ $out/PING/ 40000
 hlahd.sh -t 8 -m 70 -f ~/programs/hlahd.1.0.0/freq_data/ $out/full_exome_1.fastq $out/full_exome_2.fastq ~/programs/hlahd.1.0.0/HLA_gene.split.txt ~/programs/hlahd.1.0.0/dictionary/ sampleID $out/HLAHD
-rm $out/full_exome.fastq
-rm $out/full_exome_1.fastq
-rm $out/full_exome_2.fastq
-rm $out/full_exome.bam
 date

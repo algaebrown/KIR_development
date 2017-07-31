@@ -9,7 +9,7 @@ from itertools import izip_longest
 import pathos.multiprocessing as mp # need
 
 
-def main(input_fastq, output_dir, machine):
+def main(input_fastq, output_dir, kmer_ref, name):
 
     start_time = time.time()
 
@@ -22,10 +22,6 @@ def main(input_fastq, output_dir, machine):
     print "Files split:", str(files_split_time - start_time)
 
     # Build automan
-    if machine == 'cellar':
-        kmer_ref = '/cellar/users/ramarty/Data/kir/kmers/kmer_groups/component_mers.txt'
-    else:
-        kmer_ref = '/home/rmarty/data/ref/component_mers.txt'
     kmer_counter = KmerCounter(kmer_ref)
 
     # Parallelize
@@ -40,10 +36,10 @@ def main(input_fastq, output_dir, machine):
     combined_counts_reads = list(pd.concat([x[1].transpose() for x in results]).sum())
 
     # Output results - need both kmer and read specific
-    with open('{0}/kmer_counts.txt'.format(output_dir), 'w') as out_file:
+    with open('{0}/{1}_counts.txt'.format(output_dir, name), 'w') as out_file:
         for kmer in combined_counts:
             out_file.write('{0}\n'.format(kmer))
-    with open('{0}/kmer_read_counts.txt'.format(output_dir), 'w') as out_file:
+    with open('{0}/{1}_read_counts.txt'.format(output_dir, name), 'w') as out_file:
         for kmer in combined_counts_reads:
             out_file.write('{0}\n'.format(kmer))
 
@@ -143,10 +139,10 @@ def grouper(n, iterable, fillvalue=None):
 ###########################################  Import Arguments  #####################################
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
 
 
 
