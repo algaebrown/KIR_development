@@ -62,7 +62,7 @@ def bam_remove_dup(f_in, f_out, system):
 if __name__ == "__main__":
     start_time = time.time()
     print sys.argv
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 6:
         print "Invalid arguments."
         sys.exit()
     sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
