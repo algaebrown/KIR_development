@@ -8,19 +8,15 @@ import os
 ###########################################  Main Method  #####################################
 
 # add in sorted_rmdup_bam if this works...
-def main(input_bam, sorted_bam, sorted_rmdup_bam, output_fastq1, output_fastq2, system):
+def main(input_bam, sorted_bam, output_fastq1, output_fastq2, system):
 
     # sort bam file
     bam_sort(input_bam, sorted_bam, system)
     print "Bam is sorted."
 
-    # remove duplicates??
-    bam_remove_dup(sorted_bam, sorted_rmdup_bam)
-    # samtools rmdup full_exome_sorted.bam full_exome_sorted.rmdup.bam
-
     # bam to fastq
     #bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
-    bam_to_fastq(sorted_rmdup_bam, output_fastq1, output_fastq2, system)
+    bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
     print "Bam converted to fastq."
 
 
@@ -69,6 +65,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 7:
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
 
 
