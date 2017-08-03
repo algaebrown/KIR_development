@@ -7,15 +7,20 @@ import os
 
 ###########################################  Main Method  #####################################
 
-
-def main(input_bam, sorted_bam, output_fastq1, output_fastq2, system):
+# add in sorted_rmdup_bam if this works...
+def main(input_bam, sorted_bam, sorted_rmdup_bam, output_fastq1, output_fastq2, system):
 
     # sort bam file
     bam_sort(input_bam, sorted_bam, system)
     print "Bam is sorted."
 
+    # remove duplicates??
+    bam_remove_dup(sorted_bam, sorted_rmdup_bam)
+    # samtools rmdup full_exome_sorted.bam full_exome_sorted.rmdup.bam
+
     # bam to fastq
-    bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
+    #bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
+    bam_to_fastq(sorted_rmdup_bam, output_fastq1, output_fastq2, system)
     print "Bam converted to fastq."
 
 
@@ -44,15 +49,26 @@ def bam_sort(f_in, f_out, system):
         cmd = 'samtools sort -n {0} {1}'.format(f_in, f_out)
         os.system(cmd)
 
+def bam_remove_dup(f_in, f_out, system):
+    if system == 'cellar':
+        # Import tools (this will obviously have to change)
+        samtools="/cellar/users/hcarter/programs/samtools-1.2/samtools"
+        cmd = '{0} rmdup {1} {2}'.format(samtools, f_in, f_out)
+        os.system(cmd)
+    else:
+        # TODO: need to check this to run it on licr
+        cmd = 'samtools sort -n {0} {1}'.format(f_in, f_out)
+        os.system(cmd)
+
 
 ###########################################  Import Arguments  #####################################
 
 if __name__ == "__main__":
     start_time = time.time()
     print sys.argv
-    if len(sys.argv) != 6:
+    if len(sys.argv) != 7:
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
 
 
