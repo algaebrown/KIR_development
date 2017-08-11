@@ -55,7 +55,7 @@ for cat in categories:
     for i, sample in enumerate(samples[:500]):
 
         try:
-            values = [float(x.strip()) for x in open('/nrnb/users/ramarty/TCGA/exomes/{0}/features{1}.txt'.format(sample, cat)).readlines()]
+            values = [float(x.strip()) for x in open('/nrnb/users/ramarty/TCGA/exomes/{0}/features/{1}.txt'.format(sample, cat)).readlines()]
             values = np.array(values).astype(float)
             normalized_values = values / sum(values)
             features.append(normalized_values)
