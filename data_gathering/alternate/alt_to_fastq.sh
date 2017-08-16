@@ -4,7 +4,7 @@
 #$ -o /cellar/users/ramarty/Data/kir/sge-system_files
 #$ -e /cellar/users/ramarty/Data/kir/sge-system_files
 #$ -cwd
-#$ -t 1-1
+#$ -t 501-1758
 #$ -l h_vmem=2G
 #$ -tc 50
 #$ -l long
@@ -20,9 +20,10 @@ mkdir /nrnb/users/ramarty/alternate_pops/$population
 mkdir /nrnb/users/ramarty/alternate_pops/$population/$sample
 cd /nrnb/data/controlled/2017_dbGap_phs000179.v5.p2_GenEpidCOPD
 echo /cellar/users/ramarty/programs/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump /nrnb/data/controlled/$population/sra/$sample
-/cellar/users/ramarty/programs/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump /nrnb/data/controlled/$population/sra/$sample.sra
+/cellar/users/ramarty/programs/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump --split-files /nrnb/data/controlled/$population/sra/$sample.sra
 mv /nrnb/data/controlled/2017_dbGap_phs000179.v5.p2_GenEpidCOPD/$sample* /nrnb/data/controlled/$population/.
-Fastqs extracted.
+echo Fastqs extracted.
 date
-Fastqs merged.
+cat /nrnb/data/controlled/$population/$sample\_1.fastq /nrnb/data/controlled/$population/$sample\_2.fastq > /nrnb/data/controlled/$population/$sample.fastq
+echo Fastqs merged.
 date
