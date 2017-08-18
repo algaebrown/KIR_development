@@ -42,7 +42,7 @@ for cat in categories:
 
     features, used_samples = [], []
     # for each sample
-    for i, sample in enumerate(samples[:1000]):
+    for i, sample in enumerate(samples):
 
         try:
             values = [float(x.strip()) for x in open('/nrnb/users/ramarty/alternate_pops/{0}/{1}/features/{2}.txt'.format(populations[i], sample, cat)).readlines()]

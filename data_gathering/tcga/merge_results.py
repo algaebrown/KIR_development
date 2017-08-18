@@ -52,7 +52,7 @@ for cat in categories:
 
     features, used_samples = [], []
     # for each sample
-    for i, sample in enumerate(samples[:500]):
+    for i, sample in enumerate(samples):
 
         try:
             values = [float(x.strip()) for x in open('/nrnb/users/ramarty/TCGA/exomes/{0}/features/{1}.txt'.format(sample, cat)).readlines()]
