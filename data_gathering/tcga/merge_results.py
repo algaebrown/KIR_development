@@ -36,7 +36,7 @@ manifest = manifest[manifest.valid]
 manifest['barcode'] = manifest.filename.apply(get_barcode)
 manifest['origin'] = manifest.filename.apply(get_origin)
 normal = manifest[manifest.origin == 'normal']
-normal = normal.drop_duplicates('id')
+normal = normal.drop_duplicates('barcode')
 normal_samples = list(normal.id)
 normal_barcodes = list(normal.barcode)
 
