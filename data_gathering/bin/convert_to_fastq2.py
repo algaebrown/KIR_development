@@ -16,21 +16,21 @@ def main(input_bam, sorted_bam, output_fastq1, system):
 
     # bam to fastq
     #bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
-    bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
+    bam_to_fastq(sorted_bam, output_fastq1, system)
     print "Bam converted to fastq."
 
 
 ###########################################  Helper Methods  #####################################
 
 
-def bam_to_fastq(f_in, f_out1, f_out2, system):
+def bam_to_fastq(f_in, f_out1, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
         bedtools="/cellar/users/hcarter/programs/bedtools-2.17.0/bin"
-        cmd = '{0}/bamToFastq -i {1}.bam -fq {2}'.format(bedtools, f_in, f_out)
+        cmd = '{0}/bamToFastq -i {1}.bam -fq {2}'.format(bedtools, f_in)
         os.system(cmd)
     else:
-        cmd = 'bamToFastq -i {0}.bam -fq {1} -fq2 {2}'.format(f_in, f_out1, f_out2)
+        cmd = 'bamToFastq -i {0}.bam -fq {1} -fq2 {2}'.format(f_in, f_out1)
         os.system(cmd)
 
 
