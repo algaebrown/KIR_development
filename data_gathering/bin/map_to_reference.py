@@ -23,7 +23,7 @@ def map_to_reference(input, outdir, ref, system):
         # Import tools (this will obviously have to change)
         samtools="/cellar/users/hcarter/programs/samtools-1.2/samtools"
         bowtie2='/cellar/users/ramarty/programs/bowtie2-2.2.9/bowtie2'
-        cmd = '{0}  -x {1} -U {2} ' \
+        cmd = '{0} -k 1 -x {1} -U {2} ' \
             '| {3} view -bS -h -F 4 - > {4}'.format(bowtie2, ref, input, samtools, outdir)
         os.system(cmd)
     else:
