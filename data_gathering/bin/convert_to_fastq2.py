@@ -42,7 +42,7 @@ def bam_remove_dup(f_in, f_out, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
         samtools="/cellar/users/hcarter/programs/samtools-1.6/samtools"
-        cmd = '{0} rmdup {1}.bam {2}'.format(samtools, f_in, f_out)
+        cmd = '{0} rmdup {1} {2}'.format(samtools, f_in, f_out)
         os.system(cmd)
     else:
         # TODO: need to check this to run it on licr
