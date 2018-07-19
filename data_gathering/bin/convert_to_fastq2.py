@@ -8,7 +8,7 @@ import os
 ###########################################  Main Method  #####################################
 
 # add in sorted_rmdup_bam if this works...
-def main(input_bam, sorted_bam, output_fastq1, output_fastq2, system):
+def main(input_bam, sorted_bam, output_fastq1, system):
 
     # sort bam file
     bam_sort(input_bam, sorted_bam, system)
@@ -27,7 +27,7 @@ def bam_to_fastq(f_in, f_out1, f_out2, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
         bedtools="/cellar/users/hcarter/programs/bedtools-2.17.0/bin"
-        cmd = '{0}/bamToFastq -i {1}.bam -fq {2} -fq2 {3}'.format(bedtools, f_in, f_out1, f_out2)
+        cmd = '{0}/bamToFastq -i {1}.bam -fq {2}'.format(bedtools, f_in, f_out)
         os.system(cmd)
     else:
         cmd = 'bamToFastq -i {0}.bam -fq {1} -fq2 {2}'.format(f_in, f_out1, f_out2)
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 6:
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
 
 
