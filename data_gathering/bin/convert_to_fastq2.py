@@ -27,7 +27,7 @@ def bam_to_fastq(f_in, f_out1, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
         bedtools="/cellar/users/hcarter/programs/bedtools-2.17.0/bin"
-        cmd = '{0}/bamToFastq -i {1}.bam -fq {2}'.format(bedtools, f_in)
+        cmd = '{0}/bamToFastq -i {1}.bam -fq {2}'.format(bedtools, f_in, f_out1)
         os.system(cmd)
     else:
         cmd = 'bamToFastq -i {0}.bam -fq {1} -fq2 {2}'.format(f_in, f_out1)
