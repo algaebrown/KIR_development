@@ -8,15 +8,19 @@ import os
 ###########################################  Main Method  #####################################
 
 # add in sorted_rmdup_bam if this works...
-def main(input_bam, sorted_bam, output_fastq1, system):
+def main(input_bam, sorted_bam, dedup_bam, output_fastq1, system):
 
     # sort bam file
     bam_sort(input_bam, sorted_bam, system)
     print "Bam is sorted."
 
+    # dedup bam file
+
+    print "Bam is deduped."
+    bam_remove_dup(sorted_bam, dedup_bam, system)
+
     # bam to fastq
-    #bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
-    bam_to_fastq(sorted_bam, output_fastq1, system)
+    bam_to_fastq(dedup_bam, output_fastq1, system)
     print "Bam converted to fastq."
 
 
@@ -48,7 +52,7 @@ def bam_sort(f_in, f_out, system):
 def bam_remove_dup(f_in, f_out, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
-        samtools="/cellar/users/hcarter/programs/samtools-1.2/samtools"
+        samtools="/cellar/users/hcarter/programs/samtools-1.1/samtools"
         cmd = '{0} rmdup {1} {2}'.format(samtools, f_in, f_out)
         os.system(cmd)
     else:
@@ -62,9 +66,9 @@ def bam_remove_dup(f_in, f_out, system):
 if __name__ == "__main__":
     start_time = time.time()
     print sys.argv
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 6:
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
 
 
