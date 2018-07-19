@@ -2,11 +2,11 @@ import os
 import sys
 import time
 import random
-#import ahocorasick # need
+import ahocorasick # need
 import pandas as pd
 from Bio import SeqIO
 from itertools import izip_longest
-#import pathos.multiprocessing as mp # need
+import pathos.multiprocessing as mp # need
 
 
 def main(input_fastq, output_dir, kmer_ref, name):
