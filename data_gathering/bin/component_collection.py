@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import random
-import ahocorasick # need
+#import ahocorasick # need
 import pandas as pd
 from Bio import SeqIO
 from itertools import izip_longest
