@@ -6,7 +6,7 @@ import random
 import pandas as pd
 from Bio import SeqIO
 from itertools import izip_longest
-import pathos.multiprocessing as mp # need
+#import pathos.multiprocessing as mp # need
 
 
 def main(input_fastq, output_dir, kmer_ref, name):
