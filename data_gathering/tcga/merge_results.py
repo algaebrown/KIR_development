@@ -5,47 +5,33 @@ import numpy as np
 To go through all of the alternate samples on the secure nodes and get their features for the KIR region.
 '''
 
-# Get sample names
-def valid_barcode(x):
-    try:
-        x.index('TCGA')
+def get_TARGET(x):
+    if 'TARGET' in x:
         return True
-    except:
+    else:
         return False
-def get_barcode(x):
-    i = x.index('TCGA')
-    return x[i:i+12]
 def get_origin(x):
-    try:
-        if int(x.split('-')[3][:2]) > 9:
-            return 'normal'
-        else:
-            return 'tumor'
-    except:
-        try:
-            if x.split('-')[3] == 'NT' or x.split('-')[3] == 'NB':
-                return 'normal'
-            else:
-                return 'tumor'
-        except:
-            return 'tumor'
+    return int(x.split('-')[3][:2])
 
-manifest = pd.read_csv('/cellar/users/ramarty/Data/kir/TCGA/manifests/whole_exome.all_samples.tsv', sep='\t')
-manifest['valid'] = manifest.filename.apply(valid_barcode)
-manifest = manifest[manifest.valid]
-manifest['barcode'] = manifest.filename.apply(get_barcode)
-manifest['origin'] = manifest.filename.apply(get_origin)
-normal = manifest[manifest.origin == 'normal']
-normal = normal.drop_duplicates('barcode')
-normal_samples = list(normal.id)
-normal_barcodes = list(normal.barcode)
+uuid_barcode_map = pd.read_csv('/cellar/users/andreabc/GDC_barcodes/uuid_barcode_map.txt', sep='\t')
 
-samples = normal_barcodes
+# only exome
+uuid_barcode_map = uuid_barcode_map[uuid_barcode_map.type == 'aligned_reads']
+# remove target
+uuid_barcode_map['TARGET'] = uuid_barcode_map.sample_barcode.apply(get_TARGET)
+uuid_barcode_map = uuid_barcode_map[~uuid_barcode_map['TARGET']]
 
-components = [x.strip() for x in open('/cellar/users/ramarty/Data/kir/kmers/kmer_groups/component_and_four_mers.txt')]
+uuid_barcode_map['origin'] = uuid_barcode_map.sample_barcode.apply(get_origin)
+uuid_barcode_map = uuid_barcode_map[uuid_barcode_map.origin.isin([10, 11])]
 
-categories = ['components_four_counts', 'components_four_kir_counts', 'components_four_kir_read_counts',
-              'components_four_read_counts']
+uuid_barcode_map = uuid_barcode_map.drop_duplicates('barcode')
+
+samples = list(uuid_barcode_map.barcode)
+
+
+components = [x.strip() for x in open('/cellar/users/ramarty/Data/kir/kmers/kmer_groups/kir_four_random.txt')]
+
+categories = ['kir_four_random_counts', 'kir_four_random_read_counts']
 
 # for each category of components
 for cat in categories:
