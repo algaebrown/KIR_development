@@ -68,6 +68,7 @@ def bam_to_fastq(f_in, f_out1, system):
 if __name__ == "__main__":
     start_time = time.time()
     if len(sys.argv) != 6:
+        print sys.argv
         print "Invalid arguments."
         sys.exit()
     sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
