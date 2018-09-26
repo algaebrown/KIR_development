@@ -8,7 +8,7 @@ barcodes = list(df.Barcode)
 all_dfs = []
 for barcode in barcodes:
 
-    data = pd.read_csv('/nrnb/users/ramarty/TCGA/exomes/{0}/PING/MIRA_results.csv', index_col=0)
+    data = pd.read_csv('/nrnb/users/ramarty/TCGA/exomes/{0}/PING/MIRA_results.csv'.format(barcode), index_col=0)
 
     data[barcode] = data.__KIR
 
