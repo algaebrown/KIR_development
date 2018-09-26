@@ -12,7 +12,7 @@ for barcode in barcodes:
 
     data[barcode] = data.__KIR
 
-    all_dfs.append(data.loc[:, ['barcode']].transpose())
+    all_dfs.append(data.loc[:, [barcode]].transpose())
 
 
 merged = pd.concat(all_dfs)
