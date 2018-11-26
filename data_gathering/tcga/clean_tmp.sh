@@ -4,7 +4,7 @@
 #$ -o /cellar/users/ramarty/Data/kir/sge-system_files
 #$ -e /cellar/users/ramarty/Data/kir/sge-system_files
 #$ -cwd
-#$ -t 5-6
+#$ -t 1-10505
 #$ -l h_vmem=3G
 #$ -tc 20
 #$ -l long
@@ -19,17 +19,6 @@ set out=$outs[$SGE_TASK_ID]
 set file=$files[$SGE_TASK_ID]
 date
 hostname
-mkdir $out
-mkdir $out/features
-mkdir /tmp/ramarty
-mkdir /tmp/ramarty/$barcode
-bash /cellar/users/ramarty/tokens/GDC.exome.sh $sample /tmp/ramarty/$barcode
-echo Bam downloaded.
-python /cellar/users/ramarty/Projects/kir/KIR_development/data_gathering/bin/convert_to_fastq2.py /tmp/ramarty/$barcode/$sample/$file /tmp/ramarty/$barcode/$sample/full_exome_sorted /tmp/ramarty/$barcode/full_exome_1.fastq /tmp/ramarty/$barcode/full_exome_2.fastq cellar
-echo Fastq stripped.
-cat /tmp/ramarty/$barcode/full_exome_1.fastq /tmp/ramarty/$barcode/full_exome_2.fastq > /tmp/ramarty/$barcode/full_exome.fastq
-echo Fastq combined.
-python /cellar/users/ramarty/Projects/kir/KIR_development/data_gathering/bin/map_to_reference.py /tmp/ramarty/$barcode/full_exome.fastq $out/full_exome_kir.bam /cellar/users/ramarty/Data/kir/ref/all_alleles_and_random cellar
-echo Mapped to KIR.
-rm -r /tmp/ramarty/$barcode
+rm -r /tmp/ramarty/
+rm -r /tmp/ramarty/*
 date

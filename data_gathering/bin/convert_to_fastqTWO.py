@@ -8,18 +8,18 @@ import os
 ###########################################  Main Method  #####################################
 
 # add in sorted_rmdup_bam if this works...
-def main(input_bam, sorted_bam, dedup_bam, output_fastq1, system):
+def main(input_bam, sorted_bam, dedup_bam, output_fastq1, output_fastq2, system):
 
     # sort bam file
     bam_sort(input_bam, sorted_bam, system)
     print "Bam is sorted."
 
     # dedup bam file
-    #bam_remove_dup(sorted_bam, dedup_bam, system)
-    #print "Bam is deduped."
+    # bam_remove_dup(sorted_bam, dedup_bam, system)
+    # print "Bam is deduped."
 
     # bam to fastq
-    bam_to_fastq(sorted_bam, output_fastq1, system)
+    bam_to_fastq(sorted_bam, output_fastq1, output_fastq2, system)
     print "Bam converted to fastq."
 
 
@@ -50,11 +50,11 @@ def bam_remove_dup(f_in, f_out, system):
         os.system(cmd)
 
 
-def bam_to_fastq(f_in, f_out1, system):
+def bam_to_fastq(f_in, f_out1, f_out2, system):
     if system == 'cellar':
         # Import tools (this will obviously have to change)
         bedtools="/cellar/users/hcarter/programs/bedtools-2.17.0/bin"
-        cmd = '{0}/bamToFastq -i {1} -fq {2}'.format(bedtools, f_in, f_out1)
+        cmd = '{0}/bamToFastq -i {1} -fq {2} -fq2 {3}'.format(bedtools, f_in, f_out1, f_out2)
         os.system(cmd)
     else:
         cmd = 'bamToFastq -i {0} -fq {1} -fq2 {2}'.format(f_in, f_out1)
@@ -67,10 +67,10 @@ def bam_to_fastq(f_in, f_out1, system):
 
 if __name__ == "__main__":
     start_time = time.time()
-    if len(sys.argv) != 6:
+    if len(sys.argv) != 7: 
         print sys.argv
         print "Invalid arguments."
         sys.exit()
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
+    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
 
 
