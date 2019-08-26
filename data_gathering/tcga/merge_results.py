@@ -3,6 +3,7 @@ import numpy as np
 
 '''
 To go through all of the alternate samples on the secure nodes and get their features for the KIR region.
+merge k-mer features extracted by `exon_data_pull.ipynb` to single file having one sample per row; one k-mer per column.
 '''
 
 def get_TARGET(x):
@@ -57,7 +58,7 @@ for cat in categories:
     df = pd.DataFrame(features)
     print len(df.columns), len(df.index)
 
-    df.columns = components
+    df.columns = components # each column is a k-mer
     df.index = used_samples
 
     df.to_csv('/cellar/users/ramarty/Data/kir/components/tcga/{0}.csv'.format(cat))
