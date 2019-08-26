@@ -3,9 +3,8 @@
 3. `normalization_genes.ipynb` picks the 100 random gene, extract their chromosomal location for `exon_data_pull` to work.
 4. `creating_all_the_good_stuff.ipynb` makes neoantigen, immune type, CIBERSORT and KIR types altogether.
 5. `gathering_clinical_data.ipynb` extracts clinical information (tumor type from patient)
+6. `merge_results.py` makes the single file, 1 row per sample, 1 coloum per k-mer file from the `exon_data_pull` called k-mer count and read_count.
 
 
 Nearly all the .sh file are generated from `exon_data_pull.ipynb` to submit jobs to the cluster.
 
-Questions:
-1. where do the single file, 1 row per sample, 1 coloum per k-mer file come from?
