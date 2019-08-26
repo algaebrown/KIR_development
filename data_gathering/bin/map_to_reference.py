@@ -5,6 +5,10 @@ import subprocess
 
 
 # inputs: input fastq file, output bam file, reference
+# remap the reads from chr19, random genes and unmapped reads to reference sequence containing all KIR alleles
+# argv[1]: fastq from `convert_to_fastq2.py`
+# argv[2]: output_mapped_bam file is the remapped to KIR regions .bam in /nrnb/users/ramarty/TCGA/exome/{barcode}/KIR_and_unmapped.aligned.bam
+# argv[3]: reference sequence containing all KIR alleles at `/cellar/users/ramarty/Data/kir/ref/all_alleles_and_random cellar`
 
 ###########################################  Main Method  #####################################
 
