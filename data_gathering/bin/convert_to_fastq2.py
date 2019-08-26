@@ -4,6 +4,11 @@ import os
 
 
 # inputs: input bam file, output fastq file
+# argv[1] = combined .bam (KIR, random genes, unmapped reads)
+# argv[2] = sorted bam (output by samtools sort)
+# argv[3] = de-duplicated bam (output by samtools rmdup)
+# argv[4] = output fastq directory
+# argv[5] system (need to decide if import samtools)
 
 ###########################################  Main Method  #####################################
 
