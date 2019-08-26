@@ -13,7 +13,9 @@ def main(input_fastq, output_dir, kmer_ref, name):
     '''
     takes fastq and get the k-mer count
     input_fastq: stripped and remapped to KIR .bam file converted to fastq (/nrnb/users/ramarty/TCGA/exome/{barcode}/KIR_and_unmapped.aligned.fastq
-    output_dir: $out/features: one barcode one k-mer file
+    output_dir: $out/features: one barcode one k-mer file; two files in the features folder: _counts.txt, _read_counts.txt
+    - _counts.txt
+    - _read_counts.txt
     kmer_ref: /cellar/users/ramarty/Data/kir/kmers/kmer_groups/kir_four_random.txt
     name: kir_four_random
     '''
@@ -38,7 +40,7 @@ def main(input_fastq, output_dir, kmer_ref, name):
     parallelization_time = time.time()
     print "Parallelization time:", str(parallelization_time - files_split_time)
 
-    # Recombine
+    # Recombine the parallelized results
     combined_counts = list(pd.concat([x[0].transpose() for x in results]).sum())
     combined_counts_reads = list(pd.concat([x[1].transpose() for x in results]).sum())
 
@@ -100,14 +102,17 @@ class KmerCounter(object):
         self.A = self._build_automan()
 
     def _build_automan(self):
-        A = ahocorasick.Automaton()
-        for index, pattern in enumerate(self.kmers):
+        A = ahocorasick.Automaton() # method to find substring. makes the k-mers into a searching tree to speed up searching
+        for index, pattern in enumerate(self.kmers): # for all k-mers we are searching
             A.add_word(pattern, (index, pattern))
         A.make_automaton()
         return A
 
     def aho_corasick(self, input_fastq):
-        p_mers = [0 for x in self.kmers]
+        '''
+        fastq uses aho_corasick to find the k-mer counts. return a dict of keys = k-mer; values = k-mer count.
+        '''
+        p_mers = [0 for x in self.kmers] # initialize with every k-mer count as 0
         p_mers_reads = [0 for x in self.kmers]
         # speed up assignment to p_mer
         pmer_dict = {}
@@ -115,17 +120,21 @@ class KmerCounter(object):
             pmer_dict[mer] = i
         # actual search
         fasta_sequences = SeqIO.parse(open(input_fastq),'fastq')
-        for fasta in fasta_sequences:
+        
+        for fasta in fasta_sequences: # iterate through reads
             sequence = fasta.seq.tostring()
-            for item in self.A.iter(sequence):
-                p_mers[pmer_dict[item[1][1]]] += 1
+            for item in self.A.iter(sequence): # just a way to search all the k-mers (built in A) in `sequence`; returns end_index, (index, k-mer)
+                p_mers[pmer_dict[item[1][1]]] += 1 # +1 to that k-mer
             for item in self.A.iter(sequence):
                 p_mers_reads[pmer_dict[item[1][1]]] += 1
                 break
         return p_mers, p_mers_reads
 
     def count_kmers(self, input_fastq):
-        p_mers, p_mers_reads = self.aho_corasick(input_fastq)
+        '''
+        putting k-mer counts to the dataframe
+        '''
+        p_mers, p_mers_reads = self.aho_corasick(input_fastq) # count the k-mer, the _count and _read seems to be the same?
         p_mers = pd.DataFrame(p_mers)
         p_mers.index = self.kmers
         p_mers_reads = pd.DataFrame(p_mers_reads)
