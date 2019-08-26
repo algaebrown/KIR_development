@@ -10,6 +10,13 @@ import pathos.multiprocessing as mp # need
 
 
 def main(input_fastq, output_dir, kmer_ref, name):
+    '''
+    takes fastq and get the k-mer count
+    input_fastq: stripped and remapped to KIR .bam file converted to fastq (/nrnb/users/ramarty/TCGA/exome/{barcode}/KIR_and_unmapped.aligned.fastq
+    output_dir: $out/features: one barcode one k-mer file
+    kmer_ref: /cellar/users/ramarty/Data/kir/kmers/kmer_groups/kir_four_random.txt
+    name: kir_four_random
+    '''
 
     start_time = time.time()
 
