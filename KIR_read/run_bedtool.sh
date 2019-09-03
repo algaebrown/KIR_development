@@ -6,7 +6,7 @@ ref_genome=/cellar/users/hsher/Data/KIR_reference/all_alleles_and_random.tsv
 
 
 # convert bam to bed
-bedtools bamtobed -i $input_bam > /tmp/tcga_bam/$short_id.bed
+bedtools bamtobed -i $input_bam > /cellar/users/hsher/Data/tcga_bed/$short_id.bed
 
 # run bedtool coverage: depth and breath of each KIR gene
-bedtools coverage -b $input_bam -a $ref_bed > /cellar/users/hsher/Data/KIR_coverage/$short_id
+bedtools coverage -b /cellar/users/hsher/Data/tcga_bed/$short_id.bed -a $ref_bed > /cellar/users/hsher/Data/KIR_coverage/$short_id

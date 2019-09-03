@@ -1,4 +1,3 @@
-
 #! /bin/bash
         
 #SBATCH --job-name=/cellar/users/hsher/KIR_development/KIR_read/bdslurm.sh

@@ -4,8 +4,7 @@ def new_slurm_script(script_name, cpus_per_task='1', mem_per_cpu='5G', array_t='
 
     
     with open(script_name, 'w') as f:
-        f.write('''
-#! /bin/bash
+        f.write('''#! /bin/bash
         
 #SBATCH --job-name={0}
 #SBATCH --output={0}.out
