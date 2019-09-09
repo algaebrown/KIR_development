@@ -21,7 +21,7 @@ def kmer_df(kir_kmer):
     for length in kir_kmer.keys():
         for gene in kir_kmer[length].keys():
             for kmer in kir_kmer[length][gene]:
-                df.loc[i] = [kmer, gene, length]
+                df.loc[i] = [kmer, length, gene]
                 i += 1
     
     return(df)

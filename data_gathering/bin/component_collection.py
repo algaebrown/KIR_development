@@ -34,7 +34,6 @@ def main(input_fastq, output_dir, kmer_ref, name):
     kmer_counter = KmerCounter(kmer_ref)
 
     # Parallelize
-    pool = mp.ProcessingPool(num_of_threads)
     results = pool.map(kmer_counter.count_kmers, small_output_files)
 
     parallelization_time = time.time()
